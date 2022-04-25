@@ -36,14 +36,22 @@ async function post(
   res: NextApiResponse<MakeTransactionOutputData | ErrorOutput>
 ) {
   try {
+    const network = WalletAdapterNetwork.Devnet
+    const endpoint = clusterApiUrl(network)
+    const connection = new Connection(endpoint)
     // We pass the selected items in the query, calculate the expected cost
     const tokenAmount = calculateTokens(req.query)
     const amount = calculatePrice(req.query)
+    const tokenMint = await getMint(connection, couponAddress)
     if (amount.toNumber() === 0) {
       res.status(400).json({ error: "Can't checkout with charge of 0" })
       return
     }
-
+    if (tokenAmount.toNumber() <= 134) {
+      res.status(400).json({ error: "Minimum size 134" })
+      return
+    }
+    
     // We pass the reference to use in the query
     const { reference } = req.query
     if (!reference) {
@@ -68,9 +76,7 @@ async function post(
     const buyerPublicKey = new PublicKey(account)
     const shopPublicKey = shopKeypair.publicKey
 
-    const network = WalletAdapterNetwork.Devnet
-    const endpoint = clusterApiUrl(network)
-    const connection = new Connection(endpoint)
+    
 
     // Get the buyer and seller coupon token accounts
     // Buyer one may not exist, so we create it (which costs SOL) as the shop account if it doesn't 
@@ -83,7 +89,7 @@ async function post(
 
     const shopCouponAddress = await getAssociatedTokenAddress(couponAddress, shopPublicKey)
     
-    const tokenMint = await getMint(connection, couponAddress)
+    
     // Get details about the USDC token
     const usdcMint = await getMint(connection, usdcAddress)
     // Get the buyer's USDC token account address

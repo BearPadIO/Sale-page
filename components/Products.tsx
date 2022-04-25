@@ -18,7 +18,7 @@ export default function Products({ submitTarget, enabled }: Props) {
           {products.map(product => {
             return (
               <div className="rounded-md bg-white text-center p-8 " key={product.id}>
-                <h3 className="text-2xl font-bold">{product.name}</h3>
+                <h3 className="text-3xl font-bold">{product.name}</h3>
                 <p className="text-sm text-gray-800">{product.description}</p>
                 <p className="my-4">
                   <span className="mt-4 text-xl font-bold">{product.priceUsd} USDC</span>
