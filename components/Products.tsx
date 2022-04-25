@@ -6,22 +6,23 @@ interface Props {
   submitTarget: string;
   enabled: boolean;
 }
+  
+  
 
 export default function Products({ submitTarget, enabled }: Props) {
   const formRef = useRef<HTMLFormElement>(null);
-
   return (
     <form method='get' action={submitTarget} ref={formRef}>
       <div className='flex flex-col gap-16'>
-        <div className="grid grid-cols-2 gap-8">
+        <div className="">
           {products.map(product => {
             return (
-              <div className="rounded-md bg-white text-left p-8" key={product.id}>
+              <div className="rounded-md bg-white text-center p-8 " key={product.id}>
                 <h3 className="text-2xl font-bold">{product.name}</h3>
                 <p className="text-sm text-gray-800">{product.description}</p>
                 <p className="my-4">
-                  <span className="mt-4 text-xl font-bold">{product.priceSol} SOL</span>
-                  {product.unitName && <span className="text-sm text-gray-800"> /{product.unitName}</span>}
+                  <span className="mt-4 text-xl font-bold">{product.priceUsd} USDC</span>
+                  {product.unitName && <span className="text-sm text-gray-800"> / {product.unitName}</span>}
                 </p>
                 <div className="mt-1">
                   <NumberInput name={product.id} formRef={formRef} />
