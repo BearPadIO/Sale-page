@@ -36,7 +36,7 @@ async function post(
   res: NextApiResponse<MakeTransactionOutputData | ErrorOutput>
 ) {
   try {
-    const network = WalletAdapterNetwork.Devnet
+    const network = WalletAdapterNetwork.Mainnet
     const endpoint = clusterApiUrl(network)
     const connection = new Connection(endpoint)
     // We pass the selected items in the query, calculate the expected cost
