@@ -47,7 +47,7 @@ async function post(
       res.status(400).json({ error: "Can't checkout with charge of 0" })
       return
     }
-    if (tokenAmount.toNumber() <= 134) {
+    if (tokenAmount.toNumber() <= 1) {
       res.status(400).json({ error: "Minimum size 134" })
       return
     }
