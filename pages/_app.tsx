@@ -22,7 +22,7 @@ function MyApp({ Component, pageProps }: AppProps) {
   // Only the wallets you configure here will be compiled into your application, and only the dependencies
   // of wallets that your users connect to will be loaded.
   const wallets = [
-    new PhantomWalletAdapter(),
+    
     new SolflareWalletAdapter({ network }),
   ];
 
