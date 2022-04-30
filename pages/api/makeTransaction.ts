@@ -51,7 +51,10 @@ async function post(
       res.status(400).json({ error: "Minimum size 134" })
       return
     }
-    
+    if (tokenAmount.toNumber() >= 6700) {
+      res.status(400).json({ error: "Maximum size 6700" })
+      return
+    }
     // We pass the reference to use in the query
     const { reference } = req.query
     if (!reference) {
